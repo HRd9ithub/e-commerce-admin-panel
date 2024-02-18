@@ -37,7 +37,17 @@ p {
   color: #fff;
 }
 
+input[type="search"]::-webkit-search-decoration:hover,
+input[type="search"]::-webkit-search-cancel-button:hover {
+    cursor:pointer;
+    background-color: var(--main-color) !important;
+}
+
 /* ---------common css ------------- */
+
+.form-section label{
+  margin-bottom: 2px; 
+}
 .main-button {
   border: 0;
   outline: 0;
@@ -105,6 +115,11 @@ input:-webkit-autofill:active {
   letter-spacing: 0.3px;
 }
 
+.form-select option:checked,
+    option:hover {
+      background-color: lime !important;
+    }
+
 /* ------------------  spinner css ------------------------ */
 :root {
   --hue: 223;
@@ -146,6 +161,7 @@ input:-webkit-autofill:active {
 .cart__wheel2,
 .cart__wheel-stroke {
   animation: cartLines 2s ease-in-out infinite;
+  -webkit-animation: cartLines 2s ease-in-out infinite;
 }
 
 .cart__lines {
@@ -160,12 +176,20 @@ input:-webkit-autofill:active {
   animation-name: cartWheel1;
   transform: rotate(-0.25turn);
   transform-origin: 43px 111px;
+  -webkit-transform: rotate(-0.25turn);
+  -moz-transform: rotate(-0.25turn);
+  -ms-transform: rotate(-0.25turn);
+  -o-transform: rotate(-0.25turn);
 }
 
 .cart__wheel2 {
   animation-name: cartWheel2;
   transform: rotate(0.25turn);
   transform-origin: 102px 111px;
+  -webkit-transform: rotate(0.25turn);
+  -moz-transform: rotate(0.25turn);
+  -ms-transform: rotate(0.25turn);
+  -o-transform: rotate(0.25turn);
 }
 
 .cart__wheel-stroke {
@@ -175,6 +199,10 @@ input:-webkit-autofill:active {
 .cart__track {
   stroke: hsla(var(--hue), 10%, 10%, 0.1);
   transition: stroke var(--trans-dur);
+  -webkit-transition: stroke var(--trans-dur);
+  -moz-transition: stroke var(--trans-dur);
+  -ms-transition: stroke var(--trans-dur);
+  -o-transition: stroke var(--trans-dur);
 }
 
 /* Dark theme */
@@ -237,17 +265,29 @@ input:-webkit-autofill:active {
 @keyframes cartWheel1 {
   from {
     transform: rotate(-0.25turn);
-  }
+    -webkit-transform: rotate(-0.25turn);
+    -moz-transform: rotate(-0.25turn);
+    -ms-transform: rotate(-0.25turn);
+    -o-transform: rotate(-0.25turn);
+}
 
   to {
     transform: rotate(2.75turn);
-  }
+    -webkit-transform: rotate(2.75turn);
+    -moz-transform: rotate(2.75turn);
+    -ms-transform: rotate(2.75turn);
+    -o-transform: rotate(2.75turn);
+}
 }
 
 @keyframes cartWheel2 {
   from {
     transform: rotate(0.25turn);
-  }
+    -webkit-transform: rotate(0.25turn);
+    -moz-transform: rotate(0.25turn);
+    -ms-transform: rotate(0.25turn);
+    -o-transform: rotate(0.25turn);
+}
 
   to {
     transform: rotate(3.25turn);
@@ -368,6 +408,11 @@ input:-webkit-autofill:active {
   transition: all 0.2s linear;
 }
 
+.main-section{
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+
 .sidebar-logo {
   width: 200px;
   margin: 0 auto;
@@ -427,6 +472,26 @@ input:-webkit-autofill:active {
 
 .left-small-wrapper .sidebar-menu .sidebar-menu-item svg {
   font-size: 20px;
+}
+
+.sidebar-dropdown-heading a {
+  cursor: default;
+}
+.sidebar-dropdown-heading{
+  border-bottom: 1px solid #ccc;
+  display: none;
+}
+.left-small-wrapper .sidebar-dropdown-heading{
+  display: block;
+}
+
+.react-tooltip{
+  display: none;
+}
+
+.left-small-wrapper .react-tooltip {
+  display: block;
+  left: 50px !important ;
 }
 
 /* -------------------- navabar section ------------------ */
@@ -521,7 +586,7 @@ input:-webkit-autofill:active {
 .status-active {
   color: rgba(0 171 117);
   background: rgb(0 171 117 / .05) !important;
-  padding: 3px 10px;
+  padding: 6px 18px;
   letter-spacing: 0.3px;
   font-size: 13px;
   text-transform: capitalize;
@@ -530,7 +595,7 @@ input:-webkit-autofill:active {
 .status-inactive {
   color: rgba(230 54 108);
   background: rgb(230 54 108 / .05) !important;
-  padding: 3px 10px;
+  padding: 6px 18px;
   letter-spacing: 0.3px;
   font-size: 13px;
   text-transform: capitalize;
@@ -546,13 +611,13 @@ input:-webkit-autofill:active {
 /* action button */
 .delete-icon {
   color: #e50914;
-  font-size: 16px;
+  font-size: 17px;
   cursor: pointer;
 }
 
 .edit-icon {
   color: #25cb30;
-  font-size: 16px;
+  font-size: 17px;
   cursor: pointer;
 }
 
@@ -599,4 +664,28 @@ input[type="file"]::file-selector-button:focus {
   background-color: #ed5b1d !important;
   color: #fff;
   border: none;
+}
+
+
+/* ----------------------- breadcrumb -------------------- */
+
+.breadcrumb{
+  margin-bottom: 0px !important
+}
+
+.breadcrumb-item a, .breadcrumb-item.active{
+  color: var(--footer-bg-color);
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.breadcrumb-item a:hover{
+  transition: all 0.2s;
+  color: var(--hero-heading-color);
+}
+
+.breadcrumb-item+.breadcrumb-item::before{
+  content: "\f105";
+  font-family: "FontAwesome";
 }

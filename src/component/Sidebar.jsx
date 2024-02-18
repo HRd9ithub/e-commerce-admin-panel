@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import IconWrapper from './IconWrapper';
 import { useCallback } from 'react';
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const Sidebar = ({ sidebarToggle }) => {
 
@@ -13,6 +14,7 @@ const Sidebar = ({ sidebarToggle }) => {
       title: 'Catalog', icon: 'Catalog', child: [
         { tab: 'Products', route: '/products', current: false },
         { tab: 'Categories', route: '/categories', current: false },
+        { tab: 'Sub Categories', route: '/sub-categories', current: false },
         { tab: 'Coupons', route: '/coupons', current: false },
       ], route: '#', current: false
     },
@@ -40,10 +42,18 @@ const Sidebar = ({ sidebarToggle }) => {
               return (
                 <li key={id}>
                   {item.child.length === 0 ?
-                    <NavLink to={item.route} className="pr-1 py-2 w-100 d-flex align-items-center sidebar-menu-item">
-                      <IconWrapper iconName={item.icon} />
-                      <span className='ms-2 title'>{item.title}</span>
-                    </NavLink> :
+                    <>
+                      <NavLink to={item.route} className="pr-1 py-2 w-100 d-flex align-items-center sidebar-menu-item" data-tooltip-id={item.title} >
+                        <IconWrapper iconName={item.icon} />
+                        <span className='ms-2 title'>{item.title}</span>
+                      </NavLink>
+                      <ReactTooltip
+                        id={item.title}
+                        place="right"
+                        content={item.title}
+                      />
+                    </>
+                    :
                     <Link className={`pr-1 py-2 w-100 d-flex align-items-center justify-content-between sidebar-menu-item position-relative ${addActiveClass(item.child) ? "active" : ""}`}>
                       <div>
                         <IconWrapper iconName={item.icon} />
@@ -52,6 +62,11 @@ const Sidebar = ({ sidebarToggle }) => {
                       <IconWrapper iconName="LeftArrow" className='ps-2' />
                       <div className="sidebar-dropodwn position-absolute">
                         <ul>
+                          <li className='sidebar-dropdown-heading'>
+                            <NavLink className="pr-1 py-2 w-100">
+                              <span className='ms-0'>{item.title}</span>
+                            </NavLink>
+                          </li>
                           {item.child.map((val, ind) => {
                             return (
                               <li key={ind}>

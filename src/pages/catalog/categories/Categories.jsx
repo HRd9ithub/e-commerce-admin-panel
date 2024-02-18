@@ -3,14 +3,13 @@ import { useEffect, useMemo, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel } from "@mui/material";
 import toast from 'react-hot-toast';
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { Axios } from '../../service/axios';
-import { getLocalStorgeData } from '../../service/localStorage';
-import Spinner from '../../component/Spinner';
-import CustomerModal from './CustomerModal';
+import { Axios } from '../../../service/axios';
+import { getLocalStorgeData } from '../../../service/localStorage';
+import { Spinner } from 'react-bootstrap';
+import CategoriesModal from "./CategoriesModal";
 import { NavLink } from 'react-router-dom';
 
-
-const Customer = () => {
+const Categories = () => {
     // pagination state
     const [count, setCount] = useState(5)
     const [page, setpage] = useState(0);
@@ -18,10 +17,10 @@ const Customer = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [searchItem, setSearchItem] = useState("");
 
-    // get data for user
-    const getUserData = () => {
+    // get data for categories
+    const getCategoriesData = () => {
         setIsLoading(true);
-        Axios().get("/user", {
+        Axios().get("/category/", {
             headers: {
                 Authorization: `Bearer ${getLocalStorgeData("token")}`
             }
@@ -42,17 +41,12 @@ const Customer = () => {
     }
 
     useEffect(() => {
-        getUserData();
+        getCategoriesData();
     }, []);
 
     const recordsFilter = useMemo(() => {
         return records.filter((item) => {
-            return (
-                item.fullName?.toLowerCase().includes(searchItem.toLowerCase()) ||
-                item.mobileNumber?.toString().toLowerCase().includes(searchItem.toLowerCase()) ||
-                item.email?.toLowerCase().includes(searchItem.toLowerCase()) ||
-                item.status?.toLowerCase().includes(searchItem.toLowerCase())
-            )
+            return item.name?.toLowerCase().includes(searchItem.toLowerCase())
         })
     }, [searchItem, records]);
 
@@ -62,13 +56,13 @@ const Customer = () => {
 
         if (data) {
             setIsLoading(true);
-            Axios().delete(`/user/${id}`, {
+            Axios().delete(`/category/${id}`, {
                 headers: {
                     Authorization: `Bearer ${getLocalStorgeData("token")}`
                 }
             },).then((response) => {
                 toast.success(response.data.message);
-                getUserData();
+                getCategoriesData();
             }).catch((error) => {
                 if (!error.response) {
                     toast.error(error.message)
@@ -138,12 +132,12 @@ const Customer = () => {
                         <nav aria-label="breadcrumb">
                             <ol className="breadcrumb">
                                 <li className="breadcrumb-item"><NavLink to="/" >Dashboard</NavLink></li>
-                                <li className="breadcrumb-item active" aria-current="page">Customers</li>
+                                <li className="breadcrumb-item active" aria-current="page">Categories</li>
                             </ol>
                         </nav>
                     </div>
                     <div className="col-md-1 ms-auto ps-0">
-                        <CustomerModal getUserData={getUserData} />
+                        <CategoriesModal getCategoriesData={getCategoriesData} />
                     </div>
                 </div>
                 <hr className='mb-0'/>
@@ -156,23 +150,11 @@ const Customer = () => {
                             <TableHead className="common-header">
                                 <TableRow>
                                     <TableCell>
-                                        <TableSortLabel active={orderBy === "fullName"} direction={orderBy === "fullName" ? order : "asc"} onClick={() => handleRequestSort("fullName")}>
-                                            Customer
-                                        </TableSortLabel>
+                                        Id
                                     </TableCell>
                                     <TableCell>
-                                        <TableSortLabel active={orderBy === "mobileNumber"} direction={orderBy === "mobileNumber" ? order : "asc"} onClick={() => handleRequestSort("mobileNumber")}>
-                                            Phone
-                                        </TableSortLabel>
-                                    </TableCell>
-                                    <TableCell>
-                                        <TableSortLabel active={orderBy === "email"} direction={orderBy === "email" ? order : "asc"} onClick={() => handleRequestSort("email")}>
-                                            Email
-                                        </TableSortLabel>
-                                    </TableCell>
-                                    <TableCell>
-                                        <TableSortLabel active={orderBy === "status"} direction={orderBy === "status" ? order : "asc"} onClick={() => handleRequestSort("status")}>
-                                            Status
+                                        <TableSortLabel active={orderBy === "name"} direction={orderBy === "name" ? order : "asc"} onClick={() => handleRequestSort("name")}>
+                                            Category Name
                                         </TableSortLabel>
                                     </TableCell>
                                     <TableCell align='center'>
@@ -184,20 +166,11 @@ const Customer = () => {
                                 {recordsFilter.length !== 0 ? sortRowInformation(recordsFilter, getComparator(order, orderBy)).slice(count * page, count * page + count).map((val, ind) => {
                                     return (
                                         <TableRow key={ind}>
-                                            <TableCell>
-                                                <div className='d-flex flex-row align-items-center g-2'>
-                                                    <img src={import.meta.env.VITE_API + val.profileImage} alt="profile_image" width="45" />
-                                                    <span>{val.fullName}</span>
-                                                </div>
-                                            </TableCell>
-                                            <TableCell>{val.mobileNumber}</TableCell>
-                                            <TableCell>{val.email}</TableCell>
-                                            <TableCell>
-                                                <span className={val.status === "Active" ? 'status-active' : "status-inactive"}>{val.status}</span>
-                                            </TableCell>
+                                            <TableCell>{ind + 1}</TableCell>
+                                            <TableCell>{val.name}</TableCell>
                                             <TableCell align='center'>
                                                 <div className='action'>
-                                                    <CustomerModal data={val} getUserData={getUserData} />
+                                                    <CategoriesModal data={val} getCategoriesData={getCategoriesData} />
                                                     <RiDeleteBin6Line className='delete-icon' onClick={() => handleDelete(val._id)} />
                                                 </div>
                                             </TableCell>
@@ -205,7 +178,7 @@ const Customer = () => {
                                     )
                                 }) :
                                     <TableRow>
-                                        <TableCell colSpan={6} align="center">
+                                        <TableCell colSpan={3} align="center">
                                             No Records Found
                                         </TableCell>
                                     </TableRow>
@@ -230,4 +203,4 @@ const Customer = () => {
     )
 }
 
-export default Customer
+export default Categories

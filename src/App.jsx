@@ -43,7 +43,7 @@ const App = () => {
           <Header toggleSidebar={toggleSidebar} sidebarToggle={sidebarToggle} />
         </>}
         {checkRoute() ?
-          <div className={sidebarToggle ? "right-wrapper" : "right-small-wrapper"} id="right">
+          <div className={`main-section ${sidebarToggle ? "right-wrapper" : "right-small-wrapper"}`} id="right">
             <AppRoute />
           </div> :
           <AppRoute />}
