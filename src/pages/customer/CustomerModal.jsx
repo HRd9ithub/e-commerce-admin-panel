@@ -137,7 +137,7 @@ const CustomerModal = ({ data, getUserData }) => {
             >
                 <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter" className='w-100 d-flex justify-content-between align-items-center'>
-                        <span>{data ? "Update User" : "Add User"}</span>
+                        <span>{data ? "Update Customer" : "Add Customer"}</span>
                         <div onClick={handleHideModal}>
                             <IconWrapper iconName="Close" />
                         </div>

@@ -59,6 +59,7 @@ const Header = ({ toggleSidebar, sidebarToggle }) => {
           </button>
           <ul className="dropdown-menu">
             <li>
+              {/* <NavLink to={`/profile/${state.userData?._id}`} className="pr-1 py-2 w-100 d-flex align-items-center dropdown-item profile-menu-item"> */}
               <NavLink to="/profile" className="pr-1 py-2 w-100 d-flex align-items-center dropdown-item profile-menu-item">
                 <IconWrapper iconName="Profile" />
                 <span className='ms-2 title'>Profile</span>

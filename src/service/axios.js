@@ -1,4 +1,5 @@
 import axios from "axios";
+import { clearLocalStorgeData } from "./localStorage";
 
 export const Axios  = () => {
     // * Create api for common
@@ -10,6 +11,7 @@ export const Axios  = () => {
         return response;
       }, function (error) {
         if (error.response && error.response.status === 401) {
+            clearLocalStorgeData()
             window.location.href = '/login';
         }
         return Promise.reject(error);

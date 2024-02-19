@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Axios } from '../../../service/axios';
 import { getLocalStorgeData } from '../../../service/localStorage';
-import { Spinner } from 'react-bootstrap';
+import Spinner from '../../../component/Spinner';
 import CategoriesModal from "./CategoriesModal";
 import { NavLink } from 'react-router-dom';
 

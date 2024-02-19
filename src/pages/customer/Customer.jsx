@@ -8,7 +8,7 @@ import { getLocalStorgeData } from '../../service/localStorage';
 import Spinner from '../../component/Spinner';
 import CustomerModal from './CustomerModal';
 import { NavLink } from 'react-router-dom';
-
+import CustomerViewModal from './CustomerViewModal';
 
 const Customer = () => {
     // pagination state
@@ -130,6 +130,10 @@ const Customer = () => {
         return rowArray.map((el) => el[0])
     }
 
+    if (isLoading) {
+        return <Spinner />
+    }
+
     return (
         <>
             <Paper className='m-3'>
@@ -146,7 +150,7 @@ const Customer = () => {
                         <CustomerModal getUserData={getUserData} />
                     </div>
                 </div>
-                <hr className='mb-0'/>
+                <hr className='mb-0' />
                 <div className='mx-3'>
                     <div className='col-md-4 float-end my-2'>
                         <input type="search" id='search' name="searchItem" className='form-control' placeholder="Search" value={searchItem} onChange={(e) => setSearchItem(e.target.value)} />
@@ -197,6 +201,7 @@ const Customer = () => {
                                             </TableCell>
                                             <TableCell align='center'>
                                                 <div className='action'>
+                                                    <CustomerViewModal data={val} />
                                                     <CustomerModal data={val} getUserData={getUserData} />
                                                     <RiDeleteBin6Line className='delete-icon' onClick={() => handleDelete(val._id)} />
                                                 </div>
@@ -225,7 +230,6 @@ const Customer = () => {
                     </TablePagination>
                 </div>
             </Paper>
-            {isLoading && <Spinner />}
         </>
     )
 }
