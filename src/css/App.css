@@ -114,12 +114,6 @@ input:-webkit-autofill:active {
   color: #ccc !important;
   letter-spacing: 0.3px;
 }
-
-.form-select option:checked,
-    option:hover {
-      background-color: lime !important;
-    }
-
 /* ------------------  spinner css ------------------------ */
 :root {
   --hue: 223;
@@ -621,6 +615,12 @@ input:-webkit-autofill:active {
   cursor: pointer;
 }
 
+.view-icon{
+  color: #0075d7;
+  font-size: 17px;
+  cursor: pointer;
+}
+
 /* ----------- modal part ------------------- */
 
 .modal-title {
@@ -688,4 +688,48 @@ input[type="file"]::file-selector-button:focus {
 .breadcrumb-item+.breadcrumb-item::before{
   content: "\f105";
   font-family: "FontAwesome";
+}
+
+/* ---------------------------- Profile part -------------------------- */
+
+.image-box-profile{
+  width: 180px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--btn-box-shadow);
+  border-radius: 4px;
+}
+
+.image-section label{
+  margin: 10px 0px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.image-section{
+  border-right: 1px dashed var(--para-color) ;
+}
+
+.profile-title{
+  font-size: medium;
+  color: var(--heading-color);
+  letter-spacing: 0.3px;
+  border-bottom: 2px solid var(--hero-heading-color);
+  font-weight: 500;
+}
+
+/* ----------------------- view modal ------------------ */
+
+.customer-title{
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  font-weight: 500;
+}
+
+.customer-value {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
 }
