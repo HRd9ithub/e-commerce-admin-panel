@@ -6,9 +6,9 @@ import { LuUsers } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import { CiLogout } from "react-icons/ci";
 import PropTypes from 'prop-types';
-import { IoClose } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaRegEdit } from 'react-icons/fa';
+import { IoRemoveOutline, IoAddOutline, IoClose } from "react-icons/io5";
 
 const IconWrapper = ({ iconName }) => {
   switch (iconName) {
@@ -28,6 +28,10 @@ const IconWrapper = ({ iconName }) => {
       return <RiDeleteBin6Line/>;
     case 'View':
       return <GrView/>;
+    case 'Plus':
+      return <IoAddOutline/>;
+    case 'Minus':
+      return <IoRemoveOutline/>;
     case 'Dashboard':
       return <RxDashboard />;
     case 'Catalog':
