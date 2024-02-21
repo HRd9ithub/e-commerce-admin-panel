@@ -23,7 +23,7 @@ const Sidebar = ({ sidebarToggle }) => {
 
   const addActiveClass = useCallback((child) => {
     const data = child.filter((val) => {
-      return val.route === pathname
+      return val.route === "/" + pathname.split("/").find((val,id) => id !== 0 && val)
     });
     return data.length !== 0 ? data : ""
   }, [pathname])

@@ -168,8 +168,8 @@ const SubCategoriesModal = ({ data, getSubCategoriesData }) => {
                                     </div>
                                 }
                                 <div className="form-action mt-3">
-                                    <button type="submit" className='main-button'>Save</button>
                                     <button type="button" className='cancel-button' onClick={handleHideModal}>Cancel</button>
+                                    <button type="submit" className='main-button'>Save</button>
                                 </div>
                             </Form>
                         </Formik>

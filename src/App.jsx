@@ -1,7 +1,7 @@
 import Header from "./component/Header";
 import Sidebar from "./component/Sidebar";
 import AppRoute from "./routes/AppRoute";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { addLocalStorgeData, getLocalStorgeData } from "./service/localStorage";
 
@@ -26,14 +26,6 @@ const App = () => {
     addLocalStorgeData("sidebarToggle", !sidebarToggle);
     setSidebarToggle(!sidebarToggle);
   }
-
-  useEffect(() =>{
-    window.history.pushState(null, "", window.location.href);
-    
-    window.onpopstate = function() {
-      window.history.pushState(null, "", window.location.href);
-    }
-  })
 
   return (
     <>

@@ -10,6 +10,9 @@ import Customer from '../pages/customer/Customer';
 import Categories from '../pages/catalog/categories/Categories';
 import SubCategories from '../pages/catalog/sub-categories/SubCategories';
 import Profile from '../pages/Profile';
+import Products from '../pages/catalog/products/Products';
+import ProductForm from '../pages/catalog/products/ProductForm';
+import ProductPreview from '../pages/catalog/products/ProductPreview';
 
 
 const AppRoute = () => {
@@ -23,6 +26,13 @@ const AppRoute = () => {
       <Route exact path='/profile' element={<ProtectedRoute authentication={true}><Profile /></ProtectedRoute>}></Route>
       <Route exact path='/' element={<ProtectedRoute authentication={true}><Dashboard /></ProtectedRoute>}></Route>
       <Route exact path='/customers' element={<ProtectedRoute authentication={true}><Customer /></ProtectedRoute>}></Route>
+      <Route path='/products'>
+         <Route index element={<ProtectedRoute authentication={true}><Products /></ProtectedRoute>} />
+         <Route path='add' element={<ProtectedRoute authentication={true}><ProductForm /></ProtectedRoute>} />
+         <Route path='edit/:id' element={<ProtectedRoute authentication={true}><ProductForm /></ProtectedRoute>} />
+         <Route path='view/:id' element={<ProtectedRoute authentication={true}><ProductPreview/></ProtectedRoute>} />
+      </Route>
+      <Route exact path='/products' element={<ProtectedRoute authentication={true}><Products /></ProtectedRoute>}></Route>
       <Route exact path='/categories' element={<ProtectedRoute authentication={true}><Categories /></ProtectedRoute>}></Route>
       <Route exact path='/sub-categories' element={<ProtectedRoute authentication={true}><SubCategories /></ProtectedRoute>}></Route>
     </Routes>

@@ -6,10 +6,15 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { Axios } from '../../../service/axios';
 import { getLocalStorgeData } from '../../../service/localStorage';
 import Spinner from '../../../component/Spinner';
-import SubCategoriesModal from "./SubCategoriesModal";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { FaRegEdit } from 'react-icons/fa';
+import { GrView } from 'react-icons/gr';
+import { NumberFormatConvert } from '../../../utils/NumberFormatConvert';
+import IconWrapper from '../../../component/IconWrapper';
+import { DateFormatConvert } from '../../../utils/DateFormatConvert';
 
-const SubCategories = () => {
+const Products = () => {
+    const navigate = useNavigate();
     // pagination state
     const [count, setCount] = useState(5)
     const [page, setpage] = useState(0);
@@ -17,17 +22,17 @@ const SubCategories = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [searchItem, setSearchItem] = useState("");
 
-    // get data for Sub categories
-    const getSubCategoriesData = () => {
+    // get data for product
+    const getProductsData = () => {
         setIsLoading(true);
-        Axios().get("/sub-category/", {
+        Axios().get("/product", {
             headers: {
                 Authorization: `Bearer ${getLocalStorgeData("token")}`
             }
         },).then((response) => {
-            const { success, data } = response.data;
+            const { success, products } = response.data;
             if (success) {
-                setRecords(data);
+                setRecords(products);
             }
         }).catch((error) => {
             if (!error.response) {
@@ -41,15 +46,12 @@ const SubCategories = () => {
     }
 
     useEffect(() => {
-        getSubCategoriesData();
+        getProductsData();
     }, []);
 
     const recordsFilter = useMemo(() => {
         return records.filter((item) => {
-            return (
-                item.name?.toLowerCase().includes(searchItem.toLowerCase()) ||
-                item.category.name?.toLowerCase().includes(searchItem.toLowerCase())
-            )
+            return item.name?.toLowerCase().includes(searchItem.toLowerCase())
         })
     }, [searchItem, records]);
 
@@ -59,13 +61,13 @@ const SubCategories = () => {
 
         if (data) {
             setIsLoading(true);
-            Axios().delete(`/sub-category/${id}`, {
+            Axios().delete(`/product/${id}`, {
                 headers: {
                     Authorization: `Bearer ${getLocalStorgeData("token")}`
                 }
             },).then((response) => {
                 toast.success(response.data.message);
-                getSubCategoriesData();
+                getProductsData();
             }).catch((error) => {
                 if (!error.response) {
                     toast.error(error.message)
@@ -77,7 +79,6 @@ const SubCategories = () => {
             })
         }
     }
-
 
     // ==================== table sort part =============
     // sort state
@@ -102,10 +103,10 @@ const SubCategories = () => {
 
     const descedingComparator = (a, b, orderBy) => {
         if (orderBy === "category") {
-            if (b[orderBy]["name"] < a[orderBy]["name"]) {
+            if (b[orderBy]?.name < a[orderBy]?.name) {
                 return -1
             }
-            if (b[orderBy]["name"] > a[orderBy]["name"]) {
+            if (b[orderBy]?.name > a[orderBy]?.name) {
                 return 1
             }
             return 0
@@ -117,6 +118,7 @@ const SubCategories = () => {
                 return 1
             }
             return 0
+
         }
     }
 
@@ -143,12 +145,12 @@ const SubCategories = () => {
                         <nav aria-label="breadcrumb">
                             <ol className="breadcrumb">
                                 <li className="breadcrumb-item"><NavLink to="/" >Dashboard</NavLink></li>
-                                <li className="breadcrumb-item active" aria-current="page">Sub Categories</li>
+                                <li className="breadcrumb-item active" aria-current="page">Products</li>
                             </ol>
                         </nav>
                     </div>
                     <div className="col-md-1 ms-auto ps-0">
-                        <SubCategoriesModal getSubCategoriesData={getSubCategoriesData} />
+                        <button className='w-100 main-button' onClick={() => navigate("/products/add")}>Add</button>
                     </div>
                 </div>
                 <hr className='mb-0' />
@@ -157,20 +159,45 @@ const SubCategories = () => {
                         <input type="search" id='search' name="searchItem" className='form-control' placeholder="Search" value={searchItem} onChange={(e) => setSearchItem(e.target.value)} />
                     </div>
                     <TableContainer >
-                    <Table className="common-table-section">
+                        <Table className="common-table-section">
                             <TableHead className="common-header">
                                 <TableRow>
                                     <TableCell>
-                                        Id
-                                    </TableCell>
-                                    <TableCell>
-                                        <TableSortLabel active={orderBy === "category"} direction={orderBy === "category" ? order : "asc"} onClick={() => handleRequestSort("category")}>
-                                            Category Name
-                                        </TableSortLabel>
+                                        Product
                                     </TableCell>
                                     <TableCell>
                                         <TableSortLabel active={orderBy === "name"} direction={orderBy === "name" ? order : "asc"} onClick={() => handleRequestSort("name")}>
-                                            Sub Category Name
+                                            Product Name
+                                        </TableSortLabel>
+                                    </TableCell>
+                                    <TableCell>
+                                        <TableSortLabel active={orderBy === "category"} direction={orderBy === "category" ? order : "asc"} onClick={() => handleRequestSort("category")}>
+                                            Category
+                                        </TableSortLabel>
+                                    </TableCell>
+                                    <TableCell>
+                                        <TableSortLabel active={orderBy === "price"} direction={orderBy === "price" ? order : "asc"} onClick={() => handleRequestSort("price")}>
+                                            Price
+                                        </TableSortLabel>
+                                    </TableCell>
+                                    <TableCell>
+                                        <TableSortLabel active={orderBy === "salePrice"} direction={orderBy === "salePrice" ? order : "asc"} onClick={() => handleRequestSort("salePrice")}>
+                                            Sale Price
+                                        </TableSortLabel>
+                                    </TableCell>
+                                    <TableCell align='center'>
+                                        <TableSortLabel active={orderBy === "stock"} direction={orderBy === "stock" ? order : "asc"} onClick={() => handleRequestSort("stock")}>
+                                            Stock
+                                        </TableSortLabel>
+                                    </TableCell>
+                                    <TableCell>
+                                        <TableSortLabel active={orderBy === "status"} direction={orderBy === "status" ? order : "asc"} onClick={() => handleRequestSort("status")}>
+                                            Status
+                                        </TableSortLabel>
+                                    </TableCell>
+                                    <TableCell>
+                                        <TableSortLabel active={orderBy === "createdAt"} direction={orderBy === "createdAt" ? order : "asc"} onClick={() => handleRequestSort("createdAt")}>
+                                            Created At
                                         </TableSortLabel>
                                     </TableCell>
                                     <TableCell align='center'>
@@ -182,12 +209,24 @@ const SubCategories = () => {
                                 {recordsFilter.length !== 0 ? sortRowInformation(recordsFilter, getComparator(order, orderBy)).slice(count * page, count * page + count).map((val, ind) => {
                                     return (
                                         <TableRow key={ind}>
-                                            <TableCell>{ind + 1}</TableCell>
-                                            <TableCell>{val?.category?.name}</TableCell>
-                                            <TableCell>{val.name}</TableCell>
+                                            <TableCell><img src={import.meta.env.VITE_API + val.thumbnail} alt="product-image" width="50" loading="lazy" /></TableCell>                                            <TableCell>{val.name}</TableCell>
+                                            <TableCell>{val.category?.name}</TableCell>
+                                            <TableCell>{NumberFormatConvert(val.price)}</TableCell>
+                                            <TableCell>{val.salePrice ? NumberFormatConvert(val.salePrice) : <IconWrapper iconName="Minus" />}</TableCell>
+                                            <TableCell align='center'>
+                                                {val.stock ? val.stock :
+                                                    <span className="stock-status">
+                                                        Out of Stock
+                                                    </span>
+                                                }</TableCell>
+                                            <TableCell>
+                                                <span className={val.status === "Active" ? 'status-active' : "status-inactive"}>{val.status}</span>
+                                            </TableCell>
+                                            <TableCell>{DateFormatConvert(val.createdAt)}</TableCell>
                                             <TableCell align='center'>
                                                 <div className='action'>
-                                                    <SubCategoriesModal data={val} getSubCategoriesData={getSubCategoriesData} />
+                                                    <GrView className='view-icon' onClick={() => navigate(`/products/view/${val._id}`)}/>
+                                                    <FaRegEdit className='edit-icon' onClick={() => navigate(`/products/edit/${val._id}`)} />
                                                     <RiDeleteBin6Line className='delete-icon' onClick={() => handleDelete(val._id)} />
                                                 </div>
                                             </TableCell>
@@ -195,7 +234,7 @@ const SubCategories = () => {
                                     )
                                 }) :
                                     <TableRow>
-                                        <TableCell colSpan={4} align="center">
+                                        <TableCell colSpan={9} align="center">
                                             No Records Found
                                         </TableCell>
                                     </TableRow>
@@ -220,4 +259,4 @@ const SubCategories = () => {
     )
 }
 
-export default SubCategories;
+export default Products;
