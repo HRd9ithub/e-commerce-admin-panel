@@ -1,6 +1,6 @@
 // IconWrapper.js
 import { RxDashboard } from "react-icons/rx";
-import { MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowDown   } from "react-icons/md";
+import { MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { GrCatalog, GrView } from "react-icons/gr";
 import { LuUsers } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
@@ -9,41 +9,44 @@ import PropTypes from 'prop-types';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaRegEdit } from 'react-icons/fa';
 import { IoRemoveOutline, IoAddOutline, IoClose } from "react-icons/io5";
+import { TiShoppingCart } from "react-icons/ti";
 
 const IconWrapper = ({ iconName }) => {
   switch (iconName) {
     case 'LeftArrow':
-      return <MdOutlineKeyboardArrowRight  />;
+      return <MdOutlineKeyboardArrowRight />;
     case 'DrownArrow':
-      return <MdOutlineKeyboardArrowDown   />;
+      return <MdOutlineKeyboardArrowDown />;
     case 'Profile':
-      return <CgProfile/>;
+      return <CgProfile />;
     case 'Logout':
-      return <CiLogout/>;
+      return <CiLogout />;
     case 'Close':
-      return <IoClose/>;
+      return <IoClose />;
     case 'Edit':
-      return <FaRegEdit/>;
+      return <FaRegEdit />;
     case 'Delete':
-      return <RiDeleteBin6Line/>;
+      return <RiDeleteBin6Line />;
     case 'View':
-      return <GrView/>;
+      return <GrView />;
     case 'Plus':
-      return <IoAddOutline/>;
+      return <IoAddOutline />;
     case 'Minus':
-      return <IoRemoveOutline/>;
+      return <IoRemoveOutline />;
     case 'Dashboard':
       return <RxDashboard />;
     case 'Catalog':
       return <GrCatalog />;
     case 'Customers':
-      return<LuUsers />;
+      return <LuUsers />;
+    case 'Orders':
+      return <TiShoppingCart />;
     default:
       return null;
   }
 };
 IconWrapper.propTypes = {
-    iconName: PropTypes.string
+  iconName: PropTypes.string
 }
 
 export default IconWrapper;

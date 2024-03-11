@@ -19,6 +19,7 @@ const Sidebar = ({ sidebarToggle }) => {
       ], route: '#', current: false
     },
     { title: 'Customers', icon: 'Customers', child: [], route: '/customers', current: true },
+    { title: 'Orders', icon: 'Orders', child: [], route: '/orders', current: true },
   ]
 
   const addActiveClass = useCallback((child) => {

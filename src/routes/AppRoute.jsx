@@ -13,7 +13,9 @@ import Profile from '../pages/Profile';
 import Products from '../pages/catalog/products/Products';
 import ProductForm from '../pages/catalog/products/ProductForm';
 import ProductPreview from '../pages/catalog/products/ProductPreview';
-
+import CouponComponent from '../pages/catalog/coupon/CouponComponent';
+import Orders from '../pages/order/Orders';
+import OrderPreview from '../pages/order/OrderPreview';
 
 const AppRoute = () => {
   return (
@@ -33,8 +35,11 @@ const AppRoute = () => {
          <Route path='view/:id' element={<ProtectedRoute authentication={true}><ProductPreview/></ProtectedRoute>} />
       </Route>
       <Route exact path='/products' element={<ProtectedRoute authentication={true}><Products /></ProtectedRoute>}></Route>
+      <Route exact path='/coupons' element={<ProtectedRoute authentication={true}><CouponComponent /></ProtectedRoute>}></Route>
       <Route exact path='/categories' element={<ProtectedRoute authentication={true}><Categories /></ProtectedRoute>}></Route>
       <Route exact path='/sub-categories' element={<ProtectedRoute authentication={true}><SubCategories /></ProtectedRoute>}></Route>
+      <Route exact path='/orders' element={<ProtectedRoute authentication={true}><Orders /></ProtectedRoute>}></Route>
+      <Route exact path='/order/:id' element={<ProtectedRoute authentication={true}><OrderPreview /></ProtectedRoute>}></Route>
     </Routes>
   )
 }
