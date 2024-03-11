@@ -60,7 +60,7 @@ const ProductPreview = () => {
             </div>
             <hr className='mb-0' />
             <div className='row mx-3'>
-                <div className="col-md-5 mx-auto py-3 d-flex justify-content-center flex-column">
+                <div className="col-md-5 mx-auto py-3 d-flex justify-content-center flex-column align-items-center">
                     <div className="product-main-image text-center">
                         <img src={currentImage} alt="product-image" width="80%" height="auto" className="img-fluid" />
                     </div>
@@ -68,7 +68,7 @@ const ProductPreview = () => {
                         <div className="product-image-sider py-3 d-flex gap-2 justify-content-center">
                             {product?.images?.map((val) => {
                                 return <NavLink className="product-image-container" key={val} onClick={() => setCurrentImage(import.meta.env.VITE_API + val)}>
-                                    <img src={import.meta.env.VITE_API + val} alt="product-image" width="100" height="auto" className="img-fluid" />
+                                    <img src={import.meta.env.VITE_API + val} alt="product-image" width="100" height="auto" className="img-fluid product-images" />
                                 </NavLink>
                             })}
                         </div>
