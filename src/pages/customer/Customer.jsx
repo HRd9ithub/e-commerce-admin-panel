@@ -28,7 +28,9 @@ const Customer = () => {
         },).then((response) => {
             const { success, data } = response.data;
             if (success) {
-                setRecords(data);
+                setRecords(data.map((curElem) => {
+                    return {...curElem, profileImage: curElem.profileImage.includes("Images") ? import.meta.env.VITE_API + curElem.profileImage : curElem.profileImage}
+                }));
             }
         }).catch((error) => {
             if (!error.response) {
@@ -165,13 +167,13 @@ const Customer = () => {
                                         </TableSortLabel>
                                     </TableCell>
                                     <TableCell>
-                                        <TableSortLabel active={orderBy === "mobileNumber"} direction={orderBy === "mobileNumber" ? order : "asc"} onClick={() => handleRequestSort("mobileNumber")}>
-                                            Phone
+                                        <TableSortLabel active={orderBy === "email"} direction={orderBy === "email" ? order : "asc"} onClick={() => handleRequestSort("email")}>
+                                            Email
                                         </TableSortLabel>
                                     </TableCell>
                                     <TableCell>
-                                        <TableSortLabel active={orderBy === "email"} direction={orderBy === "email" ? order : "asc"} onClick={() => handleRequestSort("email")}>
-                                            Email
+                                        <TableSortLabel active={orderBy === "mobileNumber"} direction={orderBy === "mobileNumber" ? order : "asc"} onClick={() => handleRequestSort("mobileNumber")}>
+                                            Phone
                                         </TableSortLabel>
                                     </TableCell>
                                     <TableCell>
@@ -189,13 +191,15 @@ const Customer = () => {
                                     return (
                                         <TableRow key={ind}>
                                             <TableCell>
-                                                <div className='d-flex flex-row align-items-center g-2'>
-                                                    <img src={import.meta.env.VITE_API + val.profileImage} alt="profile_image" width="45" />
+                                                <div className='d-flex flex-row align-items-center gap-2'>
+                                                    <div className="image-div">
+                                                        <img src={val.profileImage} alt="profile_image" className='img-fluid' />
+                                                    </div>
                                                     <span>{val.fullName}</span>
                                                 </div>
                                             </TableCell>
-                                            <TableCell>{val.mobileNumber}</TableCell>
-                                            <TableCell>{val.email}</TableCell>
+                                            <TableCell>{val.email ? val.email : <i className="fa-solid fa-minus"></i>}</TableCell>
+                                            <TableCell>{val.mobileNumber ? val.mobileNumber : <i className="fa-solid fa-minus"></i>}</TableCell>
                                             <TableCell>
                                                 <span className={val.status === "Active" ? 'status-active' : "status-inactive"}>{val.status}</span>
                                             </TableCell>

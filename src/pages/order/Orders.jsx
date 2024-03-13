@@ -178,7 +178,7 @@ const Orders = () => {
                                             <TableCell align='center'>
                                                 <div className='order-action'>
                                                     <NavLink to={`/order/${val._id}`}>
-                                                        <i className="fa-regular fa-eye view-icon"></i>
+                                                        <i className="fa-regular fa-eye order-view-icon"></i>
                                                     </NavLink>
                                                 </div>
                                             </TableCell>

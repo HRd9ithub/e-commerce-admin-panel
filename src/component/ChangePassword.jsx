@@ -29,7 +29,7 @@ const ChangePassword = () => {
         initialValues: initialValues,
         validationSchema: validationSchema,
         validateOnChange: false,
-        onSubmit: (values, { setSubmitting }) => {
+        onSubmit: (values, { setSubmitting, resetForm }) => {
             setError([]);
             setSubmitting(true)
             Axios().post('/user/password', values, {
@@ -50,6 +50,7 @@ const ChangePassword = () => {
                     setError(error.response.data.error)
                 }
             }).finally(() => {
+                resetForm();
                 setSubmitting(false);
             })
         },

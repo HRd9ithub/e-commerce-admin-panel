@@ -42,6 +42,10 @@ const ProductPreview = () => {
         })
     }
 
+    if (isLoading) {
+        return <Spinner />;
+    }
+
     return (
         <Paper className='m-3'>
             <div className='row mx-3 pt-3 align-items-center'>
@@ -144,7 +148,6 @@ const ProductPreview = () => {
                     </div>
                 </div>
             </div>
-            {isLoading && <Spinner />}
         </Paper>
     )
 }

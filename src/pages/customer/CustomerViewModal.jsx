@@ -48,7 +48,7 @@ const CustomerViewModal = ({ data }) => {
                         </div>
                         <div className="col-md-4">
                             <label className='customer-title'>Mobile Number</label>
-                            <h6 className='customer-value'>{data?.mobileNumber}</h6>
+                            <h6 className='customer-value'>{data?.mobileNumber ? data.mobileNumber : <i className="fa-solid fa-minus"></i>}</h6>
                         </div>
                         {data.address &&
                         <div className="col-md-12 mt-2">

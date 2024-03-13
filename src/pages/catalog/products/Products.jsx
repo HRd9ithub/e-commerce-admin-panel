@@ -167,14 +167,14 @@ const Products = () => {
                                     </TableCell>
                                     <TableCell>
                                         <TableSortLabel active={orderBy === "name"} direction={orderBy === "name" ? order : "asc"} onClick={() => handleRequestSort("name")}>
-                                            Product Name
+                                            Name
                                         </TableSortLabel>
                                     </TableCell>
-                                    <TableCell>
+                                    {/* <TableCell>
                                         <TableSortLabel active={orderBy === "category"} direction={orderBy === "category" ? order : "asc"} onClick={() => handleRequestSort("category")}>
                                             Category
                                         </TableSortLabel>
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell>
                                         <TableSortLabel active={orderBy === "price"} direction={orderBy === "price" ? order : "asc"} onClick={() => handleRequestSort("price")}>
                                             Price
@@ -210,7 +210,7 @@ const Products = () => {
                                     return (
                                         <TableRow key={ind}>
                                             <TableCell><img src={import.meta.env.VITE_API + val.thumbnail} alt="product-image" width="50" loading="lazy" /></TableCell>                                            <TableCell>{val.name}</TableCell>
-                                            <TableCell>{val.category?.name}</TableCell>
+                                            {/* <TableCell>{val.category?.name}</TableCell> */}
                                             <TableCell>{NumberFormatConvert(val.price)}</TableCell>
                                             <TableCell>{val.salePrice ? NumberFormatConvert(val.salePrice) : <IconWrapper iconName="Minus" />}</TableCell>
                                             <TableCell align='center'>
